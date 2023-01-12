@@ -30,5 +30,20 @@ namespace LeetCode.Tests.ProblemsTests
             //assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(new int[] {0, 1}, new int[] {2, 7, 11, 15}, 9)]
+        [InlineData(new int[] {1, 2}, new int[] {3, 2, 4}, 6)]
+        [InlineData(new int[] {0, 1}, new int[] {3, 3}, 6)]
+        public void TwoSum_ReturnTwoIndiceValuesThatEqualTarget(int[] expected, int[] nums, int target)
+        {
+            //arrange
+
+            //act
+            int[] actual = _1.TwoSum(nums, target);
+
+            //assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
