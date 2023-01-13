@@ -35,63 +35,34 @@ internal static class _49
      */
     internal static IList<IList<string>> GroupAnagrams(string[] strs)
     {
-        IList<IList<string>> result = new List<IList<string>>();
-        List <string> stringsArray = new List<string>(strs);
-        List<string> tempArray;
-        List<string> list;
-        while (stringsArray.Count > 0)
+        string key;
+        Dictionary<string, IList<string>> result = new();
+        foreach(string str in strs)
         {
-            tempArray = new();
-            list = new()
+            key = new string(Hash(str));
+
+            if(!result.ContainsKey(key))
             {
-                stringsArray[0]
-            };
-            for (int i = 1; i < stringsArray.Count; i++)
-            {
-                if (IsAnagram(stringsArray[0], stringsArray[i]))
-                {
-                    list.Add(stringsArray[i]);
-                }
-                else
-                {
-                    tempArray.Add(stringsArray[i]);
-                }
+                result[key] = new List<string>();
             }
-            result.Add(list);
-            stringsArray = tempArray;
-        }
 
-        return result;
+            result[key].Add(str);
+        }
+        return result.Values.ToList();
 
     }
 
-    internal static bool IsAnagram(string s, string t)
+    internal static char[] Hash(string value)
     {
-        Dictionary<char, int> alphabet = new Dictionary<char, int>();
-
-        for (char c = 'a'; c <= 'z'; c++)
+        char[] hash = new char[26];
+        foreach(char c in value)
         {
-            alphabet.Add(c, 0);
+            hash[c - 'a']++;
         }
 
-        for (int i = 0; i < s.Length; i++)
-        {
-            alphabet[s[i]]++;
-        }
-
-        for (int i = 0; i < t.Length; i++)
-        {
-            alphabet[t[i]]--;
-        }
-
-        for (char c = 'a'; c <= 'z'; c++)
-        {
-            if (alphabet[c] != 0)
-                return false;
-        }
-
-        return true;
+        return hash;
     }
+
 }
 
 internal static class _217
